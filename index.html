@@ -144,7 +144,7 @@
       gap: 20px;
       max-width: 1080px;
       margin: 0 auto;
-      padding: 0 40px 100px;
+      padding: 0 40px 40px;
     }
 
     @media (max-width: 900px) {
@@ -497,7 +497,7 @@
 
     .join-section {
       text-align: center;
-      padding: 60px 40px 80px;
+      padding: 20px 40px 80px;
     }
 
     .join-btn {
@@ -591,6 +591,24 @@
       font-size: 13px;
       color: var(--text-secondary);
     }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 12px;
+    }
+
+    .footer-link {
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.2s;
+      cursor: pointer;
+    }
+
+    .footer-link:hover {
+      color: var(--text);
+    }
   </style>
 </head>
 <body>
@@ -600,8 +618,8 @@
   </nav>
 
   <section class="hero">
-    <h1>Игры и утилиты</h1>
-    <p>Делаем маленькие вещи, которые приносят радость и пользу каждый день</p>
+    <h1>Скучная комната</h1>
+    <p>Нескучные вещи.</p>
   </section>
 
   <div class="filters">
@@ -741,7 +759,11 @@
   </section>
 
   <footer class="footer">
-    &copy; 2025 boredroom
+    <div>&copy; 2025 boredroom.fun <span style="color: #c0392b;">♥</span></div>
+    <div class="footer-links">
+      <a href="https://t.me/boredroom" target="_blank" rel="noopener" class="footer-link">Telegram</a>
+      <a href="#" class="footer-link" id="legalBtn">Правовая информация</a>
+    </div>
   </footer>
 
   <div class="modal-overlay" id="joinOverlay">
@@ -764,6 +786,34 @@
         </div>
         <button type="submit" class="form-submit">Отправить</button>
       </form>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="legalOverlay">
+    <div class="modal" id="legalModal">
+      <button class="modal-close" id="legalClose">&times;</button>
+      <div class="modal-header">
+        <div class="modal-icon" style="background: linear-gradient(135deg, #95a5a6, #7f8c8d);">⚖️</div>
+        <div>
+          <div class="modal-title">Правовая информация</div>
+        </div>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-title">Общие положения</div>
+        <p>Все материалы, представленные на сайте boredroom.fun, являются интеллектуальной собственностью команды boredroom. Использование материалов без разрешения правообладателя запрещено.</p>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-title">Использование продуктов</div>
+        <p>Все игры и утилиты предоставляются «как есть» (as is). Команда boredroom не несёт ответственности за любые убытки, связанные с использованием продуктов.</p>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-title">Конфиденциальность</div>
+        <p>Мы не собираем персональные данные пользователей. Все данные хранятся локально в браузере пользователя и не передаются третьим лицам.</p>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-title">Контакты</div>
+        <p>По всем вопросам обращайтесь через Telegram: <a href="https://t.me/boredroom" target="_blank" rel="noopener" style="color: var(--accent);">@boredroom</a></p>
+      </div>
     </div>
   </div>
 
@@ -1032,6 +1082,30 @@
       alert('Спасибо! Мы свяжемся с вами.');
       closeJoin();
       e.target.reset();
+    });
+
+    const legalOverlay = document.getElementById('legalOverlay');
+
+    function openLegal() {
+      legalOverlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLegal() {
+      legalOverlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('legalBtn').addEventListener('click', (e) => {
+      e.preventDefault();
+      openLegal();
+    });
+    document.getElementById('legalClose').addEventListener('click', closeLegal);
+    legalOverlay.addEventListener('click', (e) => {
+      if (e.target === legalOverlay) closeLegal();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && legalOverlay.classList.contains('open')) closeLegal();
     });
   </script>
 
